@@ -35,7 +35,7 @@ class Mydriver(Single):
                 self.driver = webdriver.Edge()
             else:
                 print(f"找不到{browser_name}浏览器")
-            self.driver.implicitly_wait(10)
+            self.driver.implicitly_wait(5)
             self.driver.maximize_window()
         return self.driver
 

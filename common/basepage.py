@@ -20,7 +20,7 @@ class BasePage(object):
         for k, v in loadlocators.items():
             setattr(self, k, v)
 
-    def wait_elevisible(self, bloc, timeout=10, frequency=0.5):
+    def wait_elevisible(self, bloc, timeout=5, frequency=0.5):
         bele = WebDriverWait(self.driver, timeout, frequency).until(EC.visibility_of_element_located(bloc))
         return bele
 
@@ -28,7 +28,7 @@ class BasePage(object):
         bele = WebDriverWait(self.driver, timeout, frequency).until(EC.presence_of_element_located(bloc))
         return bele
 
-    def wait_clickable(self, bloc, timeout=10, frequency=0.5):
+    def wait_clickable(self, bloc, timeout=1.5, frequency=0.5):
         bele = WebDriverWait(self.driver, timeout, frequency).until(EC.element_to_be_clickable(bloc))
         return bele
 
@@ -57,7 +57,7 @@ class BasePage(object):
         bele = self.wait_clickable(bloc)
         bele.click()
 
-    def element_is_presence(self, bloc, timeout=10, frequency=0.5):
+    def element_is_presence(self, bloc, timeout=1.5, frequency=0.5):
         """
         创建一个判读元素是否存在的方法，捕获显示等待下元素是否返回traceback信息
         return True表明元素存在
@@ -78,8 +78,6 @@ class BasePage(object):
         创建一个判读元素是否存在的方法，捕获显示等待下元素是否返回traceback信息
         return True表明元素存在
         return Flase表示元素不存在
-        :param frequency: 频次
-        :param timeout: 持续时间
         :param bloc: 元素
         :return: 存在返回True，不存在返回Flase
         """
