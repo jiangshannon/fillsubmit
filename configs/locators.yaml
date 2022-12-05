@@ -1,0 +1,31 @@
+#注意事项：冒号之后一定要有一个空格！！！ 切记-这个是yaml的语法格式
+LoginPage: #登录页面
+  username_input: ['xpath','//*[@id="username"]'] #账号输入框
+  pwd_input: ['xpath','//*[@id="password"]'] #密码输入框
+  login_btn: ['xpath','//*[@id="formLogin"]/div[3]/div/div/span/button'] #登录按钮
+
+MainPage: #选择公司菜单
+  ysgsyw: ['xpath','//*[@id="app"]/section/section/div/header/div[1]/div/div[1]/div[2]/ul/li[4]']  #运输公司业务
+  first_co: ['xpath','//*[@id="app"]/section/section/div/header/div[2]/ul/li[1]/button'] # 选择公司 li标签下标
+
+BindDataManager: #绑定火运计划页面
+  blindplan: ['xpath','//*[@id="app"]/section/section/main/div/div/div[2]/div/div/div/div/div[4]/button[1]'] #绑定火运计划按钮
+  bp_window: ['css selector', '.ant-modal-content'] # 判断绑定火运计划弹窗是否存在
+  bp_cartask: ['xpath', '//*[@id="taskCodeId"]/div/div'] # 绑定火运计划弹窗汽运任务选择
+  bp_divtask: ['xpath', '//*[@id="decomposetaskId"]/div/div/div[1]'] # 绑定火运计划弹窗分解任务选择
+  bp_trainplan: ['xpath', '//*[@id="planCode"]/div/div/div[1]'] # 绑定火运计划弹窗火运计划选择
+  s_cartask: ["css selector","#taskCodeId .ant-select-selection-selected-value"]
+  s_divtask: ["css selector","#decomposetaskId .ant-select-selection-selected-value"]
+  s_trainplan: ["css selector","#planCode .ant-select-selection-selected-value"]
+  submit_but: ['xpath', '/html/body/div[2]/div/div[2]/div/div[2]/div[3]/div/button[2]'] # 绑定火运计划弹窗火运计划提交按钮
+  first_order: ['xpath', '//*[@id="app"]/section/section/main/div/div/div[2]/div/div/div/div/div[3]/div[2]/div/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[2]'] # 搜索到的火运计划第一个订单
+  input_carorder: ['xpath', '//*[@id="app"]/section/section/main/div/div/div[2]/div/div/div/div/div[2]/form/div/div[14]/div/div[2]/div/span/span/input'] # 派车单号输入框
+  searchbut: ['xpath', '//*[@id="app"]/section/section/main/div/div/div[2]/div/div/div/div/div[2]/form/div/div[19]/span/button[1]'] # 搜索按钮
+  checkbox: ['css selector', '.ant-table-body-inner .ant-checkbox-input'] # 第一个运单的勾选框
+  buttom_confirmbot: ['xpath', '//*[@id="app"]/section/section/main/div/div/div[2]/div/div/div/div/div[4]/div[2]/button'] # 页面下方的确认按钮
+  unborders: ['css selector','input[placeholder="请输入派车单号"]'] # 解绑页面派车单号搜索框
+  unbsearchbut: ['xpath','//*[@id="app"]/section/section/main/div/div/div[2]/div/div/div/div/div[3]/form/div/div[28]/span/button[1]']
+  unbconfirm: ['css selector','.ant-table-fixed-right .ant-table-body-outer tr.ant-table-row.ant-table-row-level-0[data-row-key="1"] a:not([disabled])']
+  unbsec_confirm: ['css selector','.ant-modal-content .ant-modal-confirm-btns button:nth-child(2)']
+  unb_window: ['css selector','.ant-modal-content .ant-modal-confirm-content'] # 解除绑定二次确认弹窗
+
