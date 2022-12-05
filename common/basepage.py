@@ -3,6 +3,7 @@
 # @DATA 2021/8/10
 import time
 
+import ddddocr
 import pyautogui
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
@@ -56,7 +57,7 @@ class BasePage(object):
         bele = self.wait_clickable(bloc)
         bele.click()
 
-    def element_is_presence(self, bloc, timeout=1.5, frequency=0.5):
+    def element_is_presence(self, bloc, timeout=10, frequency=0.5):
         """
         创建一个判读元素是否存在的方法，捕获显示等待下元素是否返回traceback信息
         return True表明元素存在
@@ -67,11 +68,24 @@ class BasePage(object):
         :return: 存在返回True，不存在返回Flase
         """
         try:
-            WebDriverWait(self.driver, timeout, frequency).until(EC.element_to_be_clickable(bloc))
-            print(f'元素存在')
+            WebDriverWait(self.driver, timeout, frequency).until(EC.presence_of_element_located(bloc))
         except Exception as e:
-            print(e)
-            print(f'未找到元素')
+            return False
+        return True
+
+    def element_is_presence_quick(self, bloc):
+        """
+        创建一个判读元素是否存在的方法，捕获显示等待下元素是否返回traceback信息
+        return True表明元素存在
+        return Flase表示元素不存在
+        :param frequency: 频次
+        :param timeout: 持续时间
+        :param bloc: 元素
+        :return: 存在返回True，不存在返回Flase
+        """
+        try:
+            self.driver.find_element(*bloc)
+        except Exception as e:
             return False
         return True
 
@@ -118,6 +132,13 @@ class BasePage(object):
     def get_title_values(self,bloc):
         ele = self.get_ele_location(bloc)
         return ele.get_attribute('title')
+
+    def get_code_text(self, bloc):
+        ocr = ddddocr.DdddOcr()
+        pic = self.driver.find_element(*bloc).screenshot_as_png
+        res = ocr.classification(pic)
+        print("验证码是：",res)
+        return res
 
 
 if __name__ == '__main__':
