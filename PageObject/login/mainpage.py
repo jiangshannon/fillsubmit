@@ -23,7 +23,6 @@ class MainPage(BasePage):
 
     def menus(self, menu):
         """
-
         :param menu: 菜单名 dashboard 工作台，task 我的任务，service 服务中心，resource 资源管理，system 系统管理，message 消息中心
         :return:
         """
@@ -41,6 +40,21 @@ class MainPage(BasePage):
             self.click_element(self.message)
         else:
             print("菜单不存在，【dashboard，task，service，resource，system，message】可用")
+
+    def testpage(self):
+        self.click_element(self.dashboard)
+        time.sleep(1)
+        self.click_element(self.task)
+        time.sleep(1)
+        self.click_element(self.service)
+        time.sleep(1)
+        self.click_element(self.resource)
+        time.sleep(1)
+        self.click_element(self.system)
+        time.sleep(1)
+        self.click_element(self.message)
+
+
 
 
 if __name__ == '__main__':

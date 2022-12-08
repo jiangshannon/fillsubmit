@@ -2,14 +2,16 @@
 # @__author__:choppa
 # @DATA 2021/7/21
 import json
-import time
+from datetime import datetime
 
 import openpyxl
 import xlrd
 import xlwt
+from xlrd import xldate_as_tuple
 from xlutils.copy import copy
-import pandas
+
 from utils.dir_path import excel_dir
+global str_obj
 
 print('Excel数据处理')
 
@@ -82,6 +84,38 @@ def get_taskcode_data(excelDir, sheetName="taskcode"):
     return data
 
 
+def get_login_data(excelDir, sheetName="login"):
+    # 1- excel 放到磁盘----把它加载到内存里
+    global str_obj
+    workBook = xlrd.open_workbook(excelDir)
+    # 2- excel 指定表
+    sheet = workBook.sheet_by_name(sheetName)
+    nrows = sheet.nrows
+    colnum = 3  # 列长度
+    list1 = []
+    num = 1
+    for row_num in range(1, nrows):
+        row_values = sheet.row_values(row_num)
+        if row_values:
+            str_obj = []
+        # 获取每一行固定，从第一列1到多少列的数据，colnum 列数
+        for i in range(colnum):
+            ctype = sheet.cell(num, i).ctype
+            cell = sheet.cell_value(num, i)
+            if ctype == 2 and cell % 1 == 0.0:  # ctype为2且为浮点
+                cell = int(cell)  # 浮点转成整型
+                cell = str(cell)  # 转成整型后再转成字符串，如果想要整型就去掉该行
+            elif ctype == 3:
+                date = datetime(*xldate_as_tuple(cell, 0))
+                cell = date.strftime('%Y/%m/%d %H:%M:%S')
+            elif ctype == 4:
+                cell = True if cell == 1 else False
+            str_obj.append(cell)
+        list1.append(str_obj)
+        num = num + 1
+    return list1
+
+
 def get_ordercode_data(excelDir, sheetName="ordercode"):
     # 1- excel 放到磁盘----把它加载到内存里
     workBook = xlrd.open_workbook(excelDir)
@@ -123,7 +157,8 @@ def get_startrow(path, sheetName=""):
     for i in range(sheet.nrows + 1):
         try:
             sheet.row_values(i)
-        except Exception:
+        except Exception as e:
+            print(e)
             return i
 
 
@@ -140,7 +175,8 @@ def get_row(path, sheetName='bind'):
     for i in range(sheet.nrows + 1):
         try:
             sheet.row_values(i)
-        except Exception:
+        except Exception as e:
+            print(e)
             return i
 
 
@@ -157,12 +193,13 @@ def get_unbindrow(path, sheetName='unbind'):
     for i in range(sheet.nrows + 1):
         try:
             sheet.row_values(i)
-        except Exception:
+        except Exception as e:
+            print(e)
             return i
 
 
 if __name__ == '__main__':
-    ret = get_taskcode_data(excel_dir, "taskcode")
-    ret1 = get_ordercode_data(excel_dir, "ordercode")
+    ret = get_login_data(excel_dir, "login")
+    # ret1 = get_taskcode_data(excel_dir, "login")
     print(ret)
-    print(ret1)
+    # print(ret1)

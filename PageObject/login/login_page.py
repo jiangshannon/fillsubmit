@@ -29,11 +29,14 @@ class LoginPage(BasePage):
         # 判断是否有登录前没有登录后页面才有上的一个元素存在，存在说明登录成功，验证码正确，错误则表示验证码或有误，重新识别验证码
         n = 3
         while n := (n - 1) + 1:
-            if self.element_is_presence_quick(["css selector", "sup.ivu-badge-count"]):
+            if self.logined():
                 print("登录成功")
                 break
+            # 如果用户名或者密码为空跳出循环，如果不是验证码错误不需要重试
+            elif USR == "" or PWD == "":
+                break
             else:
-                print("验证码错误，重新识别")
+                print(f"验证码错误，重新识别,第{4 - n}次")
                 code_text = self.get_code_text(self.codepic)
                 time.sleep(0.5)
                 self.input_text(self.code, code_text, action='输入验证码')
@@ -43,7 +46,13 @@ class LoginPage(BasePage):
         # 加1秒等待，浏览器存储cookie需要时间
         time.sleep(1)
 
+    def logined(self):
+        if self.element_is_presence_quick(["css selector", "sup.ivu-badge-count"]):
+            return True
+        else:
+            return False
+
 
 if __name__ == '__main__':
-    [LoginPage().to_loginpage().login(f"iosapp{i}", pwd, True) for i in range(10)]
+    [LoginPage().to_loginpage().login(f"", "12345", True) for i in range(2)]
     LoginPage().quit()
