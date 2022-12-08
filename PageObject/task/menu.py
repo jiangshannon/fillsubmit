@@ -15,6 +15,10 @@ class Mytask(BasePage):
     approval = "http://hn.sjbs.360unicom.cn/work/task/approval"  # 待我审批
     has_approval = "http://hn.sjbs.360unicom.cn/work/task/has-approved"  # 我的已审
 
+    def __init__(self):
+        super().__init__()
+        MainPage().menus("task")
+
     def go_page(self):
         self.go_to_page(self.pending)
         time.sleep(1)
@@ -28,9 +32,7 @@ class Mytask(BasePage):
 
 
 if __name__ == '__main__':
-    M = MainPage()
     t = time.time()
-    M.click_element(M.task)
-    N= Mytask()
-    M.go_page()
-    M.quit()
+    N = Mytask()
+    N.go_page()
+    N.quit()

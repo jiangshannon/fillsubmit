@@ -19,16 +19,16 @@ def dow():
     tk.Label(
         text='病毒入侵',
         bg='Red',
-        fon=('楷体', 17),
+        fon=('黑体', 17),
         width=15, height=2
     ).pack()
     window.mainloop()
 
 
-threads = []
-for i in range(9):
-    t = threading.Thread(target=dow)
-    threads.append(t)
-    time.sleep(0.1)
-    threads[i].start()
+# threads = []
+# for i in range(9):
+#     t = threading.Thread(target=dow)
+#     threads.append(t)
+#     time.sleep(0.1)
+#     threads[i].start()
 dow()

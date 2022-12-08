@@ -17,11 +17,14 @@ class MainPage(BasePage):
     # message: ['css selector', 'ul.ivu-menu-horizontal a:nth-child(6)']  # 系统管理
     可选参数  dashboard，task，service，resource，system，message
     """
+    def __init__(self):
+        super().__init__()
+        LoginPage().to_loginpage().login()
 
     def menus(self, menu):
         """
 
-        :param menu: 菜单名 dashboard，task，service，resource，system，message
+        :param menu: 菜单名 dashboard 工作台，task 我的任务，service 服务中心，resource 资源管理，system 系统管理，message 消息中心
         :return:
         """
         if menu == "dashboard":
@@ -39,10 +42,12 @@ class MainPage(BasePage):
         else:
             print("菜单不存在，【dashboard，task，service，resource，system，message】可用")
 
+
 if __name__ == '__main__':
     t = time.time()
     LoginPage().to_loginpage().login()
     m = MainPage()
     m.menus("task")
-    tt = time.time() -t
+    tt = time.time() - t
     print(tt)
+    m.quit()

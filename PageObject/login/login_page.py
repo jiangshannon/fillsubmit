@@ -24,26 +24,26 @@ class LoginPage(BasePage):
         self.input_text(self.pwd_input, PWD, action='输入密码')
         if hascode:
             code_text = self.get_code_text(self.codepic)
-            time.sleep(1)
-            self.input_text(self.code,code_text, action='输入验证码')
+            self.input_text(self.code, code_text, action='输入验证码')
         self.click_element(self.login_btn, action='点击登录')
+        # 判断是否有登录前没有登录后页面才有上的一个元素存在，存在说明登录成功，验证码正确，错误则表示验证码或有误，重新识别验证码
+        n = 3
+        while n := (n - 1) + 1:
+            if self.element_is_presence_quick(["css selector", "sup.ivu-badge-count"]):
+                print("登录成功")
+                break
+            else:
+                print("验证码错误，重新识别")
+                code_text = self.get_code_text(self.codepic)
+                time.sleep(0.5)
+                self.input_text(self.code, code_text, action='输入验证码')
+                self.click_element(self.login_btn, action='点击登录')
+                n -= 1
+
         # 加1秒等待，浏览器存储cookie需要时间
         time.sleep(1)
-        if not self.element_is_presence_quick(["css selector", "div.ivu-form-item-error-tip"]):
-            pass
-        else:
-            self.input_text(self.username_input, USR, action='输入用户名')
-            self.input_text(self.pwd_input, PWD, action='输入密码')
-            if hascode:
-                code_text = self.get_code_text(self.codepic)
-                time.sleep(1)
-                self.input_text(self.code, code_text, action='输入验证码')
-            self.click_element(self.login_btn, action='点击登录')
-            print("验证码错误，重新识别")
 
 
 if __name__ == '__main__':
-    for i in range(1):
-        LoginPage().to_loginpage().login(usr, pwd, True)
-        # time.sleep(1)
+    [LoginPage().to_loginpage().login(f"iosapp{i}", pwd, True) for i in range(10)]
     LoginPage().quit()

@@ -18,7 +18,7 @@ class Handletask(BasePage):
     def handle_task(self):
         # 点击第一条办理，进入办理界面
         self.move_toclickele(self.handle)
-        time.sleep(10)
+        time.sleep(20)
         # 点击提交按钮
 
 
