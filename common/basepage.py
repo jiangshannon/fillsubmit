@@ -41,6 +41,11 @@ class BasePage(object):
         bele.clear()
         bele.send_keys(*args)
 
+    def get_current_url(self):
+        url = self.driver.current_url
+        print(url)
+        return url
+
     def input_text_1(self, bloc, *args, action=''):
         bele = self.wait_presence(bloc)
         bele.send_keys(*args)
@@ -109,6 +114,12 @@ class BasePage(object):
         ele = self.wait_presence(bloc)
         webdriver.ActionChains(self.driver).move_to_element(ele).click().perform()
 
+    def move_toeleposition(self):
+        t1 = time.time()
+        AC = webdriver.ActionChains(self.driver)
+        AC.move_by_offset(747, 473).click().perform()
+        AC.reset_actions()
+
     def is_selected(self, bloc=None):
         ele = self.driver.find_element(bloc)
         if ele.is_selected():
@@ -127,7 +138,7 @@ class BasePage(object):
         ele = self.driver.find_elements(*bloc)
         print(len(ele))
 
-    def get_title_values(self,bloc):
+    def get_title_values(self, bloc):
         ele = self.get_ele_location(bloc)
         return ele.get_attribute('title')
 
@@ -135,7 +146,7 @@ class BasePage(object):
         ocr = ddddocr.DdddOcr()
         pic = self.driver.find_element(*bloc).screenshot_as_png
         res = ocr.classification(pic)
-        print("验证码是：",res)
+        print("验证码是：", res)
         return res
 
 

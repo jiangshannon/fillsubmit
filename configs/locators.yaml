@@ -5,6 +5,12 @@ LoginPage: #登录页面
   codepic : ["css selector", "button span> img"] # 验证码图片地址
   code : ["css selector", '[placeholder= "请输入验证码"]'] # 验证码输入框
   login_btn: ["css selector", "button.ivu-btn-primary"] # 登录按钮
+  newpw: ["css selector", "div.ivu-login-password:nth-child(1)  input:nth-child(2)"] # 新密码
+  rpnewpw: ["css selector","div.ivu-login-password:nth-child(2)  input:nth-child(2)"] # 重新输入新密码
+  phoneno: ["css selector", ".ivu-login-mobile  input"] # 手机号码
+  retcode: ["css selector",".ivu-login-captcha  input"] # 重置密码验证码
+  getcode: ["css selector",".ivu-login-captcha  button"] # 获取验证码
+  commitbtn: ["css selector",".ivu-login-submit  button"] # 提交验证
 
 MainPage: #选择主菜单
   dashboard: ['css selector','ul.ivu-menu-horizontal a:nth-child(1)']  #工作台
@@ -16,7 +22,7 @@ MainPage: #选择主菜单
 
 
 Mytask: #绑定火运计划页面
-    pending: "http://hn.sjbs.360unicom.cn/work/task/pending" #我的代办
+    pending: "http://hn.sjbs.360unicom.cn/work/task/pending" # 我的代办
     finished: "http://hn.sjbs.360unicom.cn/work/task/finished" # 我的已办
     distribute: "http://hn.sjbs.360unicom.cn/work/task/distribute" # 我的分发
     approval: "http://hn.sjbs.360unicom.cn/work/task/approval" # 待我审批
@@ -24,5 +30,18 @@ Mytask: #绑定火运计划页面
 
 Handletask:
     handle: ["css selector",".ivu-card-body tbody .ivu-table-row .action-edit"]
+
+
+Service: # 服务中心
+  sheetmanage: ["css selector","ul.ivu-menu>div:nth-child(1)"] # 表单管理
+  taskmanage: ["css selector","ul.ivu-menu>div:nth-child(2)"] # 任务管理
+  procemanage: ["css selector","ul.ivu-menu>div:nth-child(3)"] # 流程管理
+  newone: ["css selector",".ivu-icon.ivu-icon-md-add"] # 新建 三个页面相同，新建模版，新建任务，新建流程
+  type1: ["css selector","div.ivu-card-body>div>div:nth-child(1) button"] # 定向鉴权任务
+  type2: ["css selector","div.ivu-card-body>div>div:nth-child(2) button"] # 非定向鉴权任务
+  type3: ["css selector","div.ivu-card-body>div>div:nth-child(3) button"] # 非定向不鉴权任务
+  template: ["css selector","form.task-form-container div.ivu-select-selection"] # 表单模版
+  taskname: ["css selector",".task-form-container > div:nth-child(1) > div:nth-child(2)"] # 任务名称
+
 
 

@@ -44,24 +44,30 @@ class MainPage(BasePage):
     def testpage(self):
         self.click_element(self.dashboard)
         time.sleep(1)
+        self.get_current_url()
         self.click_element(self.task)
         time.sleep(1)
+        self.get_current_url()
         self.click_element(self.service)
         time.sleep(1)
+        self.get_current_url()
         self.click_element(self.resource)
         time.sleep(1)
+        self.get_current_url()
         self.click_element(self.system)
         time.sleep(1)
+        self.get_current_url()
         self.click_element(self.message)
-
-
+        time.sleep(1)
+        self.get_current_url()
 
 
 if __name__ == '__main__':
     t = time.time()
     LoginPage().to_loginpage().login()
     m = MainPage()
-    m.menus("task")
+    # m.menus("task")
+    m.testpage()
     tt = time.time() - t
     print(tt)
     m.quit()
