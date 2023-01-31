@@ -1,4 +1,4 @@
-#注意事项：冒号之后一定要有一个空格！！！ 切记-这个是yaml的语法格式
+# 注意事项：冒号之后一定要有一个空格！！！ 切记-这个是yaml的语法格式
 LoginPage: #登录页面
   username_input: ["css selector", '[placeholder= "请输入用户名"]'] # 账号输入框
   pwd_input: ["css selector", '[placeholder= "请输入密码"]'] # 密码输入框
@@ -21,8 +21,11 @@ MainPage: #选择主菜单
   message: ['css selector','ul.ivu-menu-horizontal a:nth-child(6)'] # 系统管理
 
 
-Mytask: #绑定火运计划页面
+Mytask: #我的任务界面
     pending: "http://hn.sjbs.360unicom.cn/work/task/pending" # 我的代办
+    handle: ["css selector","table > tbody > tr:nth-child(1)  div > div > div > a"] # 第一个任务办理
+    submit: ["css selector", ".ivu-card-extra button.ivu-btn-primary"] # 提交审核
+    confirm: ["css selector", ".ivu-modal-confirm-footer button.ivu-btn.ivu-btn-primary"] # 确认
     finished: "http://hn.sjbs.360unicom.cn/work/task/finished" # 我的已办
     distribute: "http://hn.sjbs.360unicom.cn/work/task/distribute" # 我的分发
     approval: "http://hn.sjbs.360unicom.cn/work/task/approval" # 待我审批

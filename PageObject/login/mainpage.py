@@ -17,9 +17,9 @@ class MainPage(BasePage):
     # message: ['css selector', 'ul.ivu-menu-horizontal a:nth-child(6)']  # 系统管理
     可选参数  dashboard，task，service，resource，system，message
     """
-    def __init__(self):
-        super().__init__()
-        LoginPage().to_loginpage().login()
+    # def __init__(self):
+    #     super().__init__()
+    #     LoginPage().to_loginpage().login()
 
     def menus(self, menu):
         """
@@ -39,7 +39,7 @@ class MainPage(BasePage):
         elif menu == "message":
             self.click_element(self.message)
         else:
-            print("菜单不存在，【dashboard，task，service，resource，system，message】可用")
+            print("菜单不存在,[dashboard,task,service,resource,system,message]可用")
 
     def testpage(self):
         self.click_element(self.dashboard)

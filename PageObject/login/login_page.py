@@ -66,19 +66,23 @@ class LoginPage(BasePage):
             return False
 
     def logined(self):
-        if self.element_is_presence_quick(["css selector", "sup.ivu-badge-count"]):
+        if self.element_is_presence_quick(["css selector", "ul.ivu-menu-horizontal a:nth-child(1)"]):
             return True
         else:
             return False
 
 
 if __name__ == '__main__':
-    LoginPage().to_loginpage().forgetpassword()
-    LoginPage().reset_password("123qwee", "123qwee", "13387158045")
-    for i in range(1000):
-        LoginPage().brute_force(str(i).zfill(4))
-        # if LoginPage().atloginpage():
-        #     print("暴力破解成功，密码123qwee")
-        #     break
-    # time.sleep(10)
-    # LoginPage().quit()
+    lista = ["p0", "p1", "p2", "p3", "p4", "p850", "p860", "p900"]
+
+    listb = ["iosapp1000", "iosapp500", "iosapp0", "iosapp800"]
+    listc = ["iosapp901"]
+    for i in range(50):
+        print("当前用户{}".format(i))
+        LoginPage().to_loginpage().login(USR=f"p{i}", PWD="123456")
+        a = input("是否继续，Y继续")
+        if str(a) == "y" or "Y":
+            print("用户{}已完成".format(i))
+    print("全部完成,关闭浏览器")
+    time.sleep(10)
+    LoginPage().quit()
